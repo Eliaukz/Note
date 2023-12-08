@@ -1,0 +1,9 @@
+{
+  "attachmentFolderPath": "./images",
+  "useMarkdownLinks": true,
+  "alwaysUpdateLinks": true,
+  "autoConvertHtml": false,
+  "newLinkFormat": "relative",
+  "showUnsupportedFiles": true,
+  "showLineNumber": true
+}
