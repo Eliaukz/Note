@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/cs144/cs144_summary(2).md",
+                "file": "_posts/cs144/images/cs144_summary(3).md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_posts/cs144/cs144_summary(2).md",
+                "file": "_posts/cs144/images/cs144_summary(3).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_posts/cs144/cs144_summary(2).md",
+                "file": "_posts/cs144/images/cs144_summary(3).md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/cs144/cs144_summary(2).md"
+                "file": "_posts/cs144/images/cs144_summary(3).md"
               }
             }
           }
@@ -146,15 +146,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "e3e111ee80c0922a",
+  "active": "83ae1454cacad7bc",
   "lastOpenFiles": [
+    "未命名.md",
+    "_posts/cs144/images/cs144_summary(3).md",
+    "_posts/cs144/cs144_summary(2).md",
     "_posts/cs144/cs144_summary(1).md",
     "_posts/cs144/cs144_summary(0).md",
     "_posts/cs144/images/Pasted image 20231208151310.png",
     "_posts/cs144/images/Pasted image 20231208191140.png",
     "_posts/cs144/images/Pasted image 20231208145738.png",
     "_posts/hello-world.md",
-    "_posts/cs144/cs144_summary(2).md",
     "images/Pasted image 20231208190612.png",
     "images",
     "_posts/images",
