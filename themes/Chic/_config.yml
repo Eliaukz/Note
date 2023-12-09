@@ -16,6 +16,8 @@ nickname: ysf
 
 ### this variable is MarkDown form.
 description: Do one thing at a time, and do well.
+avatar: /image/avatar.jpeg
+
 
 # main menu navigation
 ## links key words should not be changed.
@@ -69,7 +71,7 @@ post_copyright_permalink_enable: true
 post_copyright_license_enable: false
 post_copyright_license_text: Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE
 post_copyright_slogan_enable: true
-post_copyright_slogan_text:  Life consists not in holding good cards but in playing those you hold well.
+post_copyright_slogan_text: Life consists not in holding good cards but in playing those you hold well.
 ## toc
 post_toc_enable: true
 

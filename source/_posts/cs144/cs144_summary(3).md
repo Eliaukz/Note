@@ -2,7 +2,6 @@
 title: cs144 summary(3)
 category: cs144
 tags:
-  - cs
   - cs144
 ---
 ## tcpSender

@@ -1,6 +1,5 @@
 ---
 tags:
-  - cs
   - cs144
 category: cs144
 title: cs144 summary(0)
