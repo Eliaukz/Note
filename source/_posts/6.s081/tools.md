@@ -15,7 +15,7 @@ sudo apt-get install git build-essential gdb-multiarch qemu-system-misc gcc-risc
 
 然后将代码clone到本地
 ```bash
-git clone git://g.csail.mit.edu/xv6-labs-2022
+git clone git://g.csail.mit.edu/xv6-labs-2021
 ```
 
 然后就可以快乐的运行代码了
@@ -126,4 +126,14 @@ set riscv use-compressed-breakpoints yes
 
 file即对应的文件。
 
+
+附
+有时候我们在util分支设置好调试环境但是切换到其他分支后文件没有被保存
+这时候可以合并util分支的部分文件到其他分支
+```bash
+git checkout  pgtbl #以此分支为例 切换到此分支
+
+git checkout util .vscode .gdbinit #将这两个文件合并到pgtbl分支
+
+```
 
