@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="ysf">
+
+
+
+
+
+<title>Category: 15445 | ysf&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/Note/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/Note/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/Note/js/script.js"></script>
+    
+    <script src="/Note/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/Note/">ysf&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/Note/archives">Posts</a>
+                
+                    <a class="menu-item" href="/Note/category">Categories</a>
+                
+                    <a class="menu-item" href="/Note/tag">Tags</a>
+                
+                    <a class="menu-item" href="/Note/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/Note/">ysf&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/Note/archives">Posts</a>
+                
+                    <a class="menu-item" href="/Note/category">Categories</a>
+                
+                    <a class="menu-item" href="/Note/tag">Tags</a>
+                
+                    <a class="menu-item" href="/Note/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    <article class="post-wrap page">
+        
+        <h2 class="post-title">buffer-pool-manager</h2>
+        
+        <section class="post-content">
+            <p>这个实验不需要设计数据结构，只需要实现函数功能即可。</p>
+<p>本实验是要实现内存页面到磁盘页面的映射，磁盘管理是不要我们是担心的，通过diskmanager来管理，只需要读或写操作即可。</p>
+<p>每一个内存页面由一个page表示。</p>
+<h2 id="NewPage"><a href="#NewPage" class="headerlink" title="NewPage"></a>NewPage</h2><p>newpage是要从缓冲池中获得一个新的页面，返回pageid。在获取内存页面时，优先从free_list获取。如果没有空页面的话，返回nullptr。</p>
+<p>在驱逐页面时，要依次判断是否脏页面，重置内存，最后调用DeallocatePage（？？）。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">BufferPoolManager::NewPage</span><span class="params">(<span class="type">page_id_t</span> *page_id)</span> -&gt; Page * </span>&#123;</span><br><span class="line">  <span class="function">std::lock_guard&lt;std::mutex&gt; <span class="title">lock</span><span class="params">(latch_)</span></span>;</span><br><span class="line"></span><br><span class="line">  Page *ans = <span class="literal">nullptr</span>;</span><br><span class="line">  <span class="comment">// if free list or the replacer has place</span></span><br><span class="line">  <span class="keyword">if</span> (!free_list_.<span class="built_in">empty</span>() || replacer_-&gt;<span class="built_in">Size</span>() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="type">frame_id_t</span> fid = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (!free_list_.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">      fid = free_list_.<span class="built_in">front</span>();</span><br><span class="line">      free_list_.<span class="built_in">pop_front</span>();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      replacer_-&gt;<span class="built_in">Evict</span>(&amp;fid);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (pages_[fid].<span class="built_in">IsDirty</span>()) &#123;</span><br><span class="line">        disk_manager_-&gt;<span class="built_in">WritePage</span>(pages_[fid].<span class="built_in">GetPageId</span>(), pages_[fid].<span class="built_in">GetData</span>());</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// erase the page table &amp; reset</span></span><br><span class="line">      page_table_.<span class="built_in">erase</span>(pages_[fid].<span class="built_in">GetPageId</span>());</span><br><span class="line">      pages_[fid].<span class="built_in">ResetMemory</span>();</span><br><span class="line">      <span class="built_in">DeallocatePage</span>(pages_[fid].<span class="built_in">GetPageId</span>());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// allocate new page id</span></span><br><span class="line">    <span class="type">page_id_t</span> page_new_id = <span class="built_in">AllocatePage</span>();</span><br><span class="line">    *page_id = page_new_id;</span><br><span class="line"></span><br><span class="line">    pages_[fid].page_id_ = *page_id;</span><br><span class="line">    pages_[fid].pin_count_ = <span class="number">1</span>;</span><br><span class="line">    pages_[fid].is_dirty_ = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    page_table_[*page_id] = fid;</span><br><span class="line"></span><br><span class="line">    replacer_-&gt;<span class="built_in">RecordAccess</span>(fid);</span><br><span class="line">    replacer_-&gt;<span class="built_in">SetEvictable</span>(fid, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">    ans = &amp;pages_[fid];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="FetchPage"><a href="#FetchPage" class="headerlink" title="FetchPage"></a>FetchPage</h2><p>获取给定的内存页面。<br>如果需要从磁盘中读取的话，</p>
+
+        </section>
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© ysf | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

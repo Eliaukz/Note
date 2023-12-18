@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="ysf">
+
+
+
+
+
+<title>xv6-syscall | ysf&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/Note/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/Note/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/Note/js/script.js"></script>
+    
+    <script src="/Note/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/Note/">ysf&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/Note/archives">Posts</a>
+                
+                    <a class="menu-item" href="/Note/category">Categories</a>
+                
+                    <a class="menu-item" href="/Note/tag">Tags</a>
+                
+                    <a class="menu-item" href="/Note/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/Note/">ysf&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/Note/archives">Posts</a>
+                
+                    <a class="menu-item" href="/Note/category">Categories</a>
+                
+                    <a class="menu-item" href="/Note/tag">Tags</a>
+                
+                    <a class="menu-item" href="/Note/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">xv6-syscall</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">ysf</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 15, 2023&nbsp;&nbsp;16:50:53</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/Note/categories/6s081/">6s081</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h2><p>指运行在用户空间的程序向操作系统内核请求需要更高权限运行的服务。系统调用提供用户程序与操作系统之间的接口。大多数系统交互式操作需求在内核态执行。如设备IO操作或者进程间通信。</p>
+<p>xv6实现系统调用的流程</p>
+<ol>
+<li>添加函数原型声明到user&#x2F;user.h,</li>
+<li>添加a stub到user&#x2F;usys.pl</li>
+<li>在kernel&#x2F;syscall.h添加系统调用号</li>
+<li>在kernel&#x2F;syscall.c中添加系统调用</li>
+<li>在kernel&#x2F;sysproc.c    or     kernel&#x2F;sysfile.c          实现系统调用的函数体</li>
+</ol>
+<p> <strong>前置知识</strong></p>
+<p>系统调用前，处于用户态，系统调用后，处于内核态，因此无法直接传递参数<br>参数传递需要使用argint &#x2F; argaddr &#x2F; argstr  函数来传递参数</p>
+<h3 id="systrace"><a href="#systrace" class="headerlink" title="systrace"></a>systrace</h3><p>添加系统调用号</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//kernel/syscall.h</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_trace 22</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_sysinfo 23</span></span><br></pre></td></tr></table></figure>
+
+
+<p>因为要保存系统调用信息，因此需要在proc结构体中保存系统调用信息</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//kernel/proc.h</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Per-process state</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">proc</span> &#123;</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">inode</span> *<span class="title">cwd</span>;</span>            <span class="comment">// Current directory</span></span><br><span class="line">    <span class="type">char</span> name[<span class="number">16</span>];                <span class="comment">// Process name (debugging)</span></span><br><span class="line">    uint64 mark;                  <span class="comment">// 标记trace系统调用的标记位</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>syscall.c函数需要添加函数名，以及对系统调用的比较，</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//kernel/syscall.c</span></span><br><span class="line"><span class="type">static</span> <span class="title function_">uint64</span> <span class="params">(*syscalls[])</span><span class="params">(<span class="type">void</span>)</span> = &#123;</span><br><span class="line">    [SYS_fork] sys_fork,</span><br><span class="line">    [SYS_exit] sys_exit,</span><br><span class="line">    [SYS_wait] sys_wait,</span><br><span class="line">    [SYS_pipe] sys_pipe,</span><br><span class="line">    [SYS_read] sys_read,</span><br><span class="line">    [SYS_kill] sys_kill,</span><br><span class="line">    [SYS_exec] sys_exec,</span><br><span class="line">    [SYS_fstat] sys_fstat,</span><br><span class="line">    [SYS_chdir] sys_chdir,</span><br><span class="line">    [SYS_dup] sys_dup,</span><br><span class="line">    [SYS_getpid] sys_getpid,</span><br><span class="line">    [SYS_sbrk] sys_sbrk,</span><br><span class="line">    [SYS_sleep] sys_sleep,</span><br><span class="line">    [SYS_uptime] sys_uptime,</span><br><span class="line">    [SYS_open] sys_open,</span><br><span class="line">    [SYS_write] sys_write,</span><br><span class="line">    [SYS_mknod] sys_mknod,</span><br><span class="line">    [SYS_unlink] sys_unlink,</span><br><span class="line">    [SYS_link] sys_link,</span><br><span class="line">    [SYS_mkdir] sys_mkdir,</span><br><span class="line">    [SYS_close] sys_close,</span><br><span class="line">    [SYS_trace] sys_trace,</span><br><span class="line">    [SYS_sysinfo] sys_sysinfo,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">char</span> *trace_name[] = &#123;</span><br><span class="line">    [SYS_fork] <span class="string">&quot;fork&quot;</span>,</span><br><span class="line">    [SYS_exit] <span class="string">&quot;exit&quot;</span>,</span><br><span class="line">    [SYS_wait] <span class="string">&quot;wait&quot;</span>,</span><br><span class="line">    [SYS_pipe] <span class="string">&quot;pipe&quot;</span>,</span><br><span class="line">    [SYS_read] <span class="string">&quot;read&quot;</span>,</span><br><span class="line">    [SYS_kill] <span class="string">&quot;kill&quot;</span>,</span><br><span class="line">    [SYS_exec] <span class="string">&quot;exec&quot;</span>,</span><br><span class="line">    [SYS_fstat] <span class="string">&quot;fstat&quot;</span>,</span><br><span class="line">    [SYS_chdir] <span class="string">&quot;chdir&quot;</span>,</span><br><span class="line">    [SYS_dup] <span class="string">&quot;dup&quot;</span>,</span><br><span class="line">    [SYS_getpid] <span class="string">&quot;getpid&quot;</span>,</span><br><span class="line">    [SYS_sbrk] <span class="string">&quot;sbrk&quot;</span>,</span><br><span class="line">    [SYS_sleep] <span class="string">&quot;sleep&quot;</span>,</span><br><span class="line">    [SYS_uptime] <span class="string">&quot;uptime&quot;</span>,</span><br><span class="line">    [SYS_open] <span class="string">&quot;open&quot;</span>,</span><br><span class="line">    [SYS_write] <span class="string">&quot;write&quot;</span>,</span><br><span class="line">    [SYS_mknod] <span class="string">&quot;mknod&quot;</span>,</span><br><span class="line">    [SYS_unlink] <span class="string">&quot;unlink&quot;</span>,</span><br><span class="line">    [SYS_link] <span class="string">&quot;link&quot;</span>,</span><br><span class="line">    [SYS_mkdir] <span class="string">&quot;mkdir&quot;</span>,</span><br><span class="line">    [SYS_close] <span class="string">&quot;close&quot;</span>,</span><br><span class="line">    [SYS_trace] <span class="string">&quot;trace&quot;</span>,</span><br><span class="line">    [SYS_sysinfo] <span class="string">&quot;sysinfo&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">syscall</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> myproc();</span><br><span class="line"></span><br><span class="line">    num = p-&gt;trapframe-&gt;a7;</span><br><span class="line">    <span class="keyword">if</span> (num &gt; <span class="number">0</span> &amp;&amp; num &lt; NELEM(syscalls) &amp;&amp; syscalls[num]) &#123;</span><br><span class="line">        p-&gt;trapframe-&gt;a0 = syscalls[num]();</span><br><span class="line">        <span class="keyword">if</span> (<span class="number">1</span> &lt;&lt; num &amp; p-&gt;mark) &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d: syscall %s -&gt; %d\n&quot;</span>, p-&gt;pid, trace_name[num], p-&gt;trapframe-&gt;a0);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d %s: unknown sys call %d\n&quot;</span>,</span><br><span class="line">               p-&gt;pid, p-&gt;name, num);</span><br><span class="line">        p-&gt;trapframe-&gt;a0 = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>同时在fork时需要拷贝父进程的标记位到子进程</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//kernel/proc.c</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Create a new process, copying the parent.</span></span><br><span class="line"><span class="comment">// Sets up child kernel stack to return as if from fork() system call.</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">fork</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">	<span class="comment">//...</span></span><br><span class="line">    safestrcpy(np-&gt;name, p-&gt;name, <span class="keyword">sizeof</span>(p-&gt;name));</span><br><span class="line"></span><br><span class="line">    np-&gt;mark = p-&gt;mark;  <span class="comment">// 拷贝trace标识位</span></span><br><span class="line"></span><br><span class="line">    pid = np-&gt;pid;</span><br><span class="line"></span><br><span class="line">    release(&amp;np-&gt;lock);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> pid;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>sys_trace函数实现</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">uint64</span><br><span class="line"><span class="title function_">sys_trace</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    uint64 mark;</span><br><span class="line">    <span class="keyword">if</span> (argaddr(<span class="number">0</span>, &amp;mark) &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> myproc();</span><br><span class="line">    p-&gt;mark = mark;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="sysinfo"><a href="#sysinfo" class="headerlink" title="sysinfo"></a>sysinfo</h3><p>要计算sysinfo信息，则需要计算空闲内存数量和未使用的进程数量</p>
+<p>首先在sysproc.c中写出函数原型</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//kernel/sysproc.c</span></span><br><span class="line">uint64</span><br><span class="line"><span class="title function_">sys_sysinfo</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    uint64 addr;</span><br><span class="line">    <span class="keyword">if</span> (argaddr(<span class="number">0</span>, &amp;addr) &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sysinfo</span> <span class="title">info</span>;</span></span><br><span class="line">    info.freemem = kmemory();</span><br><span class="line">    info.nproc = kproc();</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> myproc();</span><br><span class="line">    <span class="keyword">if</span> (copyout(p-&gt;pagetable, addr, (<span class="type">char</span> *)&amp;info, <span class="keyword">sizeof</span>(info)) &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>然后就以此实现计算空闲内存数量的函数kmemory 和计算进程的函数kproc</p>
+<h4 id="kmemory"><a href="#kmemory" class="headerlink" title="kmemory"></a>kmemory</h4><p>在kernel&#x2F;kalloc.c中实现memory</p>
+<p>xv6中的空闲内存页存储在kmem.freelist中，因此只要遍历这个单链表就可以计算得到空闲内存的大小（kmem存的是页表，因此每次需要加一个PGSIZE）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//kernel/kalloc.c</span></span><br><span class="line">uint64 <span class="title function_">kmemory</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">run</span> *<span class="title">r</span>;</span></span><br><span class="line">    uint64 ans = <span class="number">0</span>;</span><br><span class="line">    acquire(&amp;kmem.lock);</span><br><span class="line">    <span class="keyword">for</span> (r = kmem.freelist; r != <span class="number">0</span>; r = r-&gt;next)</span><br><span class="line">        ans += PGSIZE;</span><br><span class="line">    release(&amp;kmem.lock);</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="kproc"><a href="#kproc" class="headerlink" title="kproc"></a>kproc</h4><p>kproc函数的实现可以参照<code>kill</code> or <code>walk</code>函数实现</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//kernel/proc.c</span></span><br><span class="line">uint64 <span class="title function_">kproc</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    uint64 ans = <span class="number">0</span>;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span>;</span></span><br><span class="line">    <span class="keyword">for</span> (p = proc; p &lt; &amp;proc[NPROC]; p++) &#123;</span><br><span class="line">        acquire(&amp;p-&gt;lock);</span><br><span class="line">        <span class="keyword">if</span> (p-&gt;state != UNUSED)</span><br><span class="line">            ans++;</span><br><span class="line">        release(&amp;p-&gt;lock);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>**这里的函数均需要在<code>kernel/def.h</code>中声明</p>
+<p>然后使用copyout将信息从内核态拷贝到用户态就完成了sysinfo系统调用</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>ysf</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://eliaukz.github.io/Note/2023/12/15/6.s081/syscall/">https://eliaukz.github.io/Note/2023/12/15/6.s081/syscall/</a></span>
+                    </p>
+                
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Life consists not in holding good cards but in playing those you hold well.</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/Note/tags/6s081/"># 6s081</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/Note/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/Note/2023/12/15/cs144/cs144_summary(5)/">cs144 summary(5)</a>
+            
+            
+            <a class="next" rel="next" href="/Note/2023/12/15/6.s081/thread/">xv6-thread</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© ysf | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

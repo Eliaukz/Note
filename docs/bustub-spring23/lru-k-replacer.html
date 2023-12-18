@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="ysf">
+
+
+
+
+
+<title>Category: 15445 | ysf&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/Note/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/Note/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/Note/js/script.js"></script>
+    
+    <script src="/Note/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/Note/">ysf&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/Note/archives">Posts</a>
+                
+                    <a class="menu-item" href="/Note/category">Categories</a>
+                
+                    <a class="menu-item" href="/Note/tag">Tags</a>
+                
+                    <a class="menu-item" href="/Note/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/Note/">ysf&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/Note/archives">Posts</a>
+                
+                    <a class="menu-item" href="/Note/category">Categories</a>
+                
+                    <a class="menu-item" href="/Note/tag">Tags</a>
+                
+                    <a class="menu-item" href="/Note/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    <article class="post-wrap page">
+        
+        <h2 class="post-title">lru-k-replacer</h2>
+        
+        <section class="post-content">
+            <p>本文记录一下lru-k-replacer的实现历程</p>
+<p>在操作系统课程上，学习过<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/lru-cache/description/">lru算法</a>，但是我没有接触过lru-k因此上网搜了一下，最后发现只需要使用两个list+unordered_map就可以实现了。这是我茅塞顿开。</p>
+<p>因此数据结构的设计上，对于lrunode，我保存命中的次数，以及frame_id。具体如下。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LRUKNode</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">LRUKNode</span>(<span class="type">frame_id_t</span> frame, <span class="type">size_t</span> k) : <span class="built_in">k_</span>(k), <span class="built_in">hit_</span>(<span class="number">1</span>), <span class="built_in">fid_</span>(frame), <span class="built_in">is_evictable_</span>(<span class="literal">false</span>) &#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">auto</span> <span class="title">is_evictable</span><span class="params">()</span> -&gt; <span class="type">bool</span> </span>&#123; <span class="keyword">return</span> is_evictable_; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">auto</span> <span class="title">set_evictable</span><span class="params">(<span class="type">bool</span> evictable)</span> </span>&#123; is_evictable_ = evictable; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">auto</span> <span class="title">access</span><span class="params">()</span> </span>&#123; hit_++; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">auto</span> <span class="title">should_buffer</span><span class="params">()</span> -&gt; <span class="type">bool</span> </span>&#123; <span class="keyword">return</span> hit_ &gt;= k_; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">auto</span> <span class="title">get_frameid</span><span class="params">()</span> -&gt; <span class="type">frame_id_t</span> </span>&#123; <span class="keyword">return</span> fid_; &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="comment">/** History of last seen K timestamps of this page. Least recent timestamp stored in front. */</span></span><br><span class="line">  <span class="comment">// Remove maybe_unused if you start using them. Feel free to change the member variables as you want.</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// [[maybe_unused]] std::list&lt;size_t&gt; history_;</span></span><br><span class="line">  <span class="comment">// [[maybe_unused]] size_t k_;</span></span><br><span class="line">  <span class="comment">// [[maybe_unused]] frame_id_t fid_;</span></span><br><span class="line">  <span class="comment">// [[maybe_unused]] bool is_evictable_&#123;false&#125;;</span></span><br><span class="line">  <span class="type">size_t</span> k_;</span><br><span class="line">  <span class="type">size_t</span> hit_;</span><br><span class="line">  <span class="type">frame_id_t</span> fid_;</span><br><span class="line">  <span class="type">bool</span> is_evictable_&#123;<span class="literal">false</span>&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>lrukreplacer的数据结构设计上，我的设计如下。<br>锁的使用上，我都是一把大锁完成实验。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">std::list&lt;LRUKNode&gt; history_list_;</span><br><span class="line">std::unordered_map&lt;<span class="type">frame_id_t</span>, std::list&lt;LRUKNode&gt;::iterator&gt; history_map_;</span><br><span class="line">std::list&lt;LRUKNode&gt; buffer_list_;</span><br><span class="line">std::unordered_map&lt;<span class="type">frame_id_t</span>, std::list&lt;LRUKNode&gt;::iterator&gt; buffer_map_;</span><br><span class="line"><span class="type">size_t</span> replacer_size_;</span><br><span class="line"><span class="type">size_t</span> k_;</span><br><span class="line"><span class="type">size_t</span> curr_size_&#123;<span class="number">0</span>&#125;;</span><br><span class="line">std::mutex latch_;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Evict"><a href="#Evict" class="headerlink" title="Evict"></a>Evict</h2><p>使用两个队列，因此命中小于k次的位于history_list_，驱逐时遵循先进先出策略，每次命中后，判断是否应该移植buffer_list<br>命中大于等于k次的位于buffer_list，每次命中后，将其移植队列尾部，<br>至于为什么移至队列尾部而不是头部，我认为驱逐时并非驱逐第一个元素，而是需要判断是否可驱逐，因此需要从头向后遍历。而移至尾部，需要从后向前遍历，设计比较不人性化。</p>
+<p>对于evict函数的实现，首先遍历history_list如果有可以驱逐的，则驱逐该队列的元素，否则遍历buffer_list，如果都不能驱逐，则返回false。</p>
+<p>注意驱逐之后，需要对size执行–操作。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">LRUKReplacer::Evict</span><span class="params">(<span class="type">frame_id_t</span> *frame_id)</span> -&gt; <span class="type">bool</span> </span>&#123;</span><br><span class="line">  <span class="function">std::lock_guard&lt;std::mutex&gt; <span class="title">lock</span><span class="params">(latch_)</span></span>;</span><br><span class="line">  <span class="type">bool</span> flag = <span class="literal">false</span>;  <span class="comment">// 表示成功删除元素与否</span></span><br><span class="line">  <span class="keyword">if</span> (history_map_.<span class="built_in">size</span>()) &#123;</span><br><span class="line">    <span class="comment">// 小于k次  fifo</span></span><br><span class="line">    <span class="keyword">auto</span> it = history_list_.<span class="built_in">begin</span>();</span><br><span class="line">    <span class="keyword">for</span> (; it != history_list_.<span class="built_in">end</span>(); it++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (it-&gt;<span class="built_in">is_evictable</span>()) &#123;</span><br><span class="line">        flag = <span class="literal">true</span>;</span><br><span class="line">        *frame_id = it-&gt;<span class="built_in">get_frameid</span>();</span><br><span class="line">        history_list_.<span class="built_in">erase</span>(it);</span><br><span class="line">        history_map_.<span class="built_in">erase</span>(*frame_id);</span><br><span class="line"></span><br><span class="line">        curr_size_--;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (!flag &amp;&amp; buffer_map_.<span class="built_in">size</span>()) &#123;</span><br><span class="line">    <span class="keyword">auto</span> it = buffer_list_.<span class="built_in">begin</span>();</span><br><span class="line">    <span class="keyword">for</span> (; it != buffer_list_.<span class="built_in">end</span>(); it++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (it-&gt;<span class="built_in">is_evictable</span>()) &#123;</span><br><span class="line">        flag = <span class="literal">true</span>;</span><br><span class="line">        *frame_id = it-&gt;<span class="built_in">get_frameid</span>();</span><br><span class="line">        buffer_list_.<span class="built_in">erase</span>(it);</span><br><span class="line">        buffer_map_.<span class="built_in">erase</span>(*frame_id);</span><br><span class="line"></span><br><span class="line">        curr_size_--;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> flag;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="RecordAccess"><a href="#RecordAccess" class="headerlink" title="RecordAccess"></a>RecordAccess</h2><p>对于RecordAccess函数，判断是否缓存，缓存命中的操作不再赘述。如果未缓存，需要将其插入history_list队列，如果容量达到限制，需要驱逐一个页面。在进行插入操作。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">LRUKReplacer::RecordAccess</span><span class="params">(<span class="type">frame_id_t</span> frame_id, [[maybe_unused]] AccessType access_type)</span> </span>&#123;</span><br><span class="line">  <span class="function">std::lock_guard&lt;std::mutex&gt; <span class="title">lock</span><span class="params">(latch_)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (history_map_.<span class="built_in">count</span>(frame_id)) &#123;</span><br><span class="line">    <span class="keyword">auto</span> it = history_map_[frame_id];</span><br><span class="line">    it-&gt;<span class="built_in">access</span>();</span><br><span class="line">    <span class="keyword">if</span> (it-&gt;<span class="built_in">should_buffer</span>()) &#123;</span><br><span class="line">      LRUKNode node = *it;</span><br><span class="line">      history_list_.<span class="built_in">erase</span>(it);</span><br><span class="line">      history_map_.<span class="built_in">erase</span>(frame_id);</span><br><span class="line"></span><br><span class="line">      buffer_list_.<span class="built_in">emplace_back</span>(node);</span><br><span class="line">      buffer_map_[frame_id] = std::<span class="built_in">prev</span>(buffer_list_.<span class="built_in">end</span>());  <span class="comment">// 指向最后一个迭代器</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (buffer_map_.<span class="built_in">count</span>(frame_id)) &#123;</span><br><span class="line">    <span class="keyword">auto</span> it = buffer_map_[frame_id];</span><br><span class="line">    it-&gt;<span class="built_in">access</span>();</span><br><span class="line">    <span class="keyword">auto</span> node = *it;</span><br><span class="line">    buffer_list_.<span class="built_in">erase</span>(it);</span><br><span class="line">    buffer_map_.<span class="built_in">erase</span>(frame_id);</span><br><span class="line"></span><br><span class="line">    buffer_list_.<span class="built_in">emplace_back</span>(node);</span><br><span class="line">    buffer_map_[frame_id] = std::<span class="built_in">prev</span>(buffer_list_.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">auto</span> node = <span class="built_in">LRUKNode</span>(frame_id, k_);</span><br><span class="line">    <span class="keyword">if</span> (history_map_.<span class="built_in">size</span>() + buffer_map_.<span class="built_in">size</span>() &gt;= replacer_size_) &#123;</span><br><span class="line">      <span class="comment">// 需要删除一个节点</span></span><br><span class="line">      <span class="type">frame_id_t</span> res;</span><br><span class="line">      <span class="built_in">Evict</span>(&amp;res);</span><br><span class="line">    &#125;</span><br><span class="line">    history_list_.<span class="built_in">emplace_back</span>(node);</span><br><span class="line">    history_map_[frame_id] = std::<span class="built_in">prev</span>(history_list_.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="SetEvictable"><a href="#SetEvictable" class="headerlink" title="SetEvictable"></a>SetEvictable</h2><p>这个函数比较简单，但是为了方便统计size，因此分四种情况讨论了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">LRUKReplacer::SetEvictable</span><span class="params">(<span class="type">frame_id_t</span> frame_id, <span class="type">bool</span> set_evictable)</span> </span>&#123;</span><br><span class="line">  <span class="function">std::lock_guard&lt;std::mutex&gt; <span class="title">lock</span><span class="params">(latch_)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (history_map_.<span class="built_in">count</span>(frame_id)) &#123;</span><br><span class="line">    <span class="keyword">auto</span> it = history_map_[frame_id];</span><br><span class="line">    <span class="keyword">if</span> (it-&gt;<span class="built_in">is_evictable</span>() &amp;&amp; !set_evictable) &#123;</span><br><span class="line">      it-&gt;<span class="built_in">set_evictable</span>(set_evictable);</span><br><span class="line">      curr_size_--;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!it-&gt;<span class="built_in">is_evictable</span>() &amp;&amp; set_evictable) &#123;</span><br><span class="line">      it-&gt;<span class="built_in">set_evictable</span>(set_evictable);</span><br><span class="line">      curr_size_++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (buffer_map_.<span class="built_in">count</span>(frame_id)) &#123;</span><br><span class="line">    <span class="keyword">auto</span> it = buffer_map_[frame_id];</span><br><span class="line">    <span class="keyword">if</span> (it-&gt;<span class="built_in">is_evictable</span>() &amp;&amp; !set_evictable) &#123;</span><br><span class="line">      it-&gt;<span class="built_in">set_evictable</span>(set_evictable);</span><br><span class="line">      curr_size_--;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!it-&gt;<span class="built_in">is_evictable</span>() &amp;&amp; set_evictable) &#123;</span><br><span class="line">      it-&gt;<span class="built_in">set_evictable</span>(set_evictable);</span><br><span class="line">      curr_size_++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Remove"><a href="#Remove" class="headerlink" title="Remove"></a>Remove</h2><p>remove只需判断是否缓存，是否可驱逐即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">LRUKReplacer::Remove</span><span class="params">(<span class="type">frame_id_t</span> frame_id)</span> </span>&#123;</span><br><span class="line">  <span class="function">std::lock_guard&lt;std::mutex&gt; <span class="title">lock</span><span class="params">(latch_)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (history_map_.<span class="built_in">count</span>(frame_id)) &#123;</span><br><span class="line">    <span class="keyword">auto</span> it = history_map_[frame_id];</span><br><span class="line">    <span class="keyword">if</span> (it-&gt;<span class="built_in">is_evictable</span>()) &#123;</span><br><span class="line">      history_map_.<span class="built_in">erase</span>(frame_id);</span><br><span class="line">      history_list_.<span class="built_in">erase</span>(it);</span><br><span class="line">      curr_size_--;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (buffer_map_.<span class="built_in">count</span>(frame_id)) &#123;</span><br><span class="line">    <span class="keyword">auto</span> it = buffer_map_[frame_id];</span><br><span class="line">    <span class="keyword">if</span> (it-&gt;<span class="built_in">is_evictable</span>()) &#123;</span><br><span class="line">      buffer_map_.<span class="built_in">erase</span>(frame_id);</span><br><span class="line">      buffer_list_.<span class="built_in">erase</span>(it);</span><br><span class="line">      curr_size_--;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Size"><a href="#Size" class="headerlink" title="Size"></a>Size</h2><p>size函数因为我在操作的过程中记录了size的大小，因此直接返回就OK</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">LRUKReplacer::Size</span><span class="params">()</span> -&gt; <span class="type">size_t</span> </span>&#123;</span><br><span class="line">  <span class="function">std::lock_guard&lt;std::mutex&gt; <span class="title">lock</span><span class="params">(latch_)</span></span>;</span><br><span class="line">  <span class="keyword">return</span> curr_size_;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+        </section>
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© ysf | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "5db825ec716990b6",
+        "id": "c0a54f0e8b68961e",
         "type": "tabs",
         "children": [
           {
-            "id": "9e2adcb6828c7b0c",
+            "id": "2491eb7f7241328c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/6.s081/fs.md",
+                "file": "bustub-spring23/buffer-pool-manager.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_posts/6.s081/fs.md",
+                "file": "bustub-spring23/buffer-pool-manager.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_posts/6.s081/fs.md",
+                "file": "bustub-spring23/buffer-pool-manager.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/6.s081/fs.md"
+                "file": "bustub-spring23/buffer-pool-manager.md"
               }
             }
           }
@@ -146,8 +146,11 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "9e2adcb6828c7b0c",
+  "active": "e3e111ee80c0922a",
   "lastOpenFiles": [
+    "bustub-spring23/buffer-pool-manager.md",
+    "bustub-spring23/lru-k-replacer.md",
+    "bustub-spring23",
     "_posts/6.s081/fs.md",
     "_posts/6.s081/lock.md",
     "_posts/6.s081/thread.md",

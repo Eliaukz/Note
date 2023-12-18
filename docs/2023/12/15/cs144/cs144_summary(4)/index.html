@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="ysf">
+
+
+
+
+
+<title>cs144 summary(4) | ysf&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/Note/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/Note/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/Note/js/script.js"></script>
+    
+    <script src="/Note/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/Note/">ysf&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/Note/archives">Posts</a>
+                
+                    <a class="menu-item" href="/Note/category">Categories</a>
+                
+                    <a class="menu-item" href="/Note/tag">Tags</a>
+                
+                    <a class="menu-item" href="/Note/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/Note/">ysf&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/Note/archives">Posts</a>
+                
+                    <a class="menu-item" href="/Note/category">Categories</a>
+                
+                    <a class="menu-item" href="/Note/tag">Tags</a>
+                
+                    <a class="menu-item" href="/Note/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">cs144 summary(4)</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">ysf</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 15, 2023&nbsp;&nbsp;16:50:53</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/Note/categories/cs144/">cs144</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>根据互联网五层协议</p>
+<table>
+<thead>
+<tr>
+<th>层次</th>
+<th>协议举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>应用层</td>
+<td>http</td>
+</tr>
+<tr>
+<td>运输层</td>
+<td>tcp&#x2F;udp</td>
+</tr>
+<tr>
+<td>网络层</td>
+<td>ip</td>
+</tr>
+<tr>
+<td>链路层</td>
+<td>802.3</td>
+</tr>
+<tr>
+<td>物理层</td>
+<td>。。。</td>
+</tr>
+</tbody></table>
+<p>lab0实现的webget属于应用层，lab123实现的tcp发送方和接受方属于运输层，本实验需要实现的arp（地址解析协议）属于网络层，是ip地址到mac地址之间的转换。</p>
+<p> <a target="_blank" rel="noopener" href="https://www.rfc-editor.org/rfc/rfc826">rfc::826</a> 这里可以查看协议的官方文档。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Construct a network interface with given Ethernet (network-access-layer) and IP (internet-layer)</span></span><br><span class="line"><span class="comment">// addresses</span></span><br><span class="line"><span class="built_in">NetworkInterface</span>( <span class="type">const</span> EthernetAddress&amp; ethernet_address, <span class="type">const</span> Address&amp; ip_address );</span><br><span class="line"></span><br><span class="line"><span class="comment">// Access queue of Ethernet frames awaiting transmission</span></span><br><span class="line"><span class="function">std::optional&lt;EthernetFrame&gt; <span class="title">maybe_send</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Sends an IPv4 datagram, encapsulated in an Ethernet frame (if it knows the Ethernet destination</span></span><br><span class="line"><span class="comment">// address). Will need to use [ARP](\ref rfc::rfc826) to look up the Ethernet destination address</span></span><br><span class="line"><span class="comment">// for the next hop.</span></span><br><span class="line"><span class="comment">// (&quot;Sending&quot; is accomplished by making sure maybe_send() will release the frame when next called,</span></span><br><span class="line"><span class="comment">// but please consider the frame sent as soon as it is generated.)</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">send_datagram</span><span class="params">( <span class="type">const</span> InternetDatagram&amp; dgram, <span class="type">const</span> Address&amp; next_hop )</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Receives an Ethernet frame and responds appropriately.</span></span><br><span class="line"><span class="comment">// If type is IPv4, returns the datagram.</span></span><br><span class="line"><span class="comment">// If type is ARP request, learn a mapping from the &quot;sender&quot; fields, and send an ARP reply.</span></span><br><span class="line"><span class="comment">// If type is ARP reply, learn a mapping from the &quot;sender&quot; fields.</span></span><br><span class="line"><span class="function">std::optional&lt;InternetDatagram&gt; <span class="title">recv_frame</span><span class="params">( <span class="type">const</span> EthernetFrame&amp; frame )</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Called periodically when time elapses</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tick</span><span class="params">( <span class="type">size_t</span> ms_since_last_tick )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>从要实现的函数来看，主要要我们实现对到达的数据报的处理（包括tcp报文，arp请求报文，arp回复报文）</p>
+<p>因此我们要实现mac地址的寻址（通过发送arp报文实现）</p>
+<p>arp协议要求地址缓存一定时间后就被抛弃<br>（缓存是为了更快的寻址，抛弃是为了更准确的寻址。–科大 郑老师）</p>
+<p>因此我们要储存ip地址到mac地址的映射，还要储存邻居ip地址，以及缓存待发送的数据。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Ethernet (known as hardware, network-access, or link-layer) address of the interface</span></span><br><span class="line">EthernetAddress ethernet_address_; <span class="comment">// mac地址</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// IP (known as Internet-layer or network-layer) address of the interface</span></span><br><span class="line">Address ip_address_; <span class="comment">// ip地址</span></span><br><span class="line"></span><br><span class="line">std::unordered_map&lt;<span class="type">uint32_t</span>, std::pair&lt;EthernetAddress, <span class="type">size_t</span>&gt;&gt;</span><br><span class="line">  ip_and_mac_; <span class="comment">// IP地址与mac地址之间的映射 第二个参数表示已经缓存的时间</span></span><br><span class="line">std::unordered_map&lt;<span class="type">uint32_t</span>, <span class="type">size_t</span>&gt; arp_timer_;                             <span class="comment">// arp ip地址缓存的时间</span></span><br><span class="line">std::unordered_map&lt;<span class="type">uint32_t</span>, std::vector&lt;InternetDatagram&gt;&gt; waited_dagrams_; <span class="comment">//等待发送的ip数据报</span></span><br><span class="line">std::queue&lt;EthernetFrame&gt; out_frames_;                                       <span class="comment">//等待发送的帧</span></span><br></pre></td></tr></table></figure>
+
+
+<p>同理 send_datagram仅向待发送队列中添加数据报，而不负责发送，maybe_send函数才是真正发送</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// dgram: the IPv4 datagram to be sent</span></span><br><span class="line"><span class="comment">// next_hop: the IP address of the interface to send it to (typically a router or default gateway, but</span></span><br><span class="line"><span class="comment">// may also be another host if directly connected to the same network as the destination)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Note: the Address type can be converted to a uint32_t (raw 32-bit IP address) by using the</span></span><br><span class="line"><span class="comment">// Address::ipv4_numeric() method.</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">NetworkInterface::send_datagram</span><span class="params">( <span class="type">const</span> InternetDatagram&amp; dgram, <span class="type">const</span> Address&amp; next_hop )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">uint32_t</span> target_ip = next_hop.<span class="built_in">ipv4_numeric</span>();</span><br><span class="line">  <span class="keyword">if</span> ( ip_and_mac_.<span class="built_in">count</span>( target_ip ) ) &#123;</span><br><span class="line">    EthernetFrame eframe &#123; &#123; ip_and_mac_[target_ip].first, ethernet_address_, EthernetHeader::TYPE_IPv4 &#125;,</span><br><span class="line">                           <span class="built_in">serialize</span>( dgram ) &#125;;</span><br><span class="line">    out_frames_.<span class="built_in">push</span>( eframe );</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> ( !arp_timer_.<span class="built_in">count</span>( target_ip ) ) &#123;</span><br><span class="line">      ARPMessage arpmsg;</span><br><span class="line">      arpmsg.opcode = ARPMessage::OPCODE_REQUEST;</span><br><span class="line">      arpmsg.sender_ip_address = ip_address_.<span class="built_in">ipv4_numeric</span>();</span><br><span class="line">      arpmsg.sender_ethernet_address = ethernet_address_;</span><br><span class="line">      arpmsg.target_ip_address = next_hop.<span class="built_in">ipv4_numeric</span>();</span><br><span class="line"></span><br><span class="line">      EthernetFrame eframe &#123; &#123; ETHERNET_BROADCAST, ethernet_address_, EthernetHeader::TYPE_ARP &#125;,</span><br><span class="line">                             <span class="built_in">serialize</span>( arpmsg ) &#125;;</span><br><span class="line">      out_frames_.<span class="built_in">push</span>( eframe );</span><br><span class="line">      arp_timer_.<span class="built_in">emplace</span>( next_hop.<span class="built_in">ipv4_numeric</span>(), <span class="number">0</span> );</span><br><span class="line">      waited_dagrams_.<span class="built_in">insert</span>( &#123; target_ip, &#123; dgram &#125; &#125; );</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      waited_dagrams_[target_ip].<span class="built_in">push_back</span>( dgram );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>如果这个目标mac地址未被缓存，那么需要发送arp请求报文，查找目标mac地址，这是一个广播报文。 然后将这个报文添加到待发送的队列中</p>
+<p>maybe_send就是从待发送的帧中弹出一个发送出去。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">optional&lt;EthernetFrame&gt; <span class="title">NetworkInterface::maybe_send</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span> ( out_frames_.<span class="built_in">empty</span>() ) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">auto</span> frame = out_frames_.<span class="built_in">front</span>();</span><br><span class="line">  out_frames_.<span class="built_in">pop</span>();</span><br><span class="line">  <span class="keyword">return</span> frame;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>tick函数处理起来也比较简单，如果缓存超过规定时间，就抛弃</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ms_since_last_tick: the number of milliseconds since the last call to this method</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">NetworkInterface::tick</span><span class="params">( <span class="type">const</span> <span class="type">size_t</span> ms_since_last_tick )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">static</span> <span class="type">const</span> <span class="type">size_t</span> IP_MAP_TTL = <span class="number">30000</span>;</span><br><span class="line">  <span class="type">static</span> <span class="type">const</span> <span class="type">size_t</span> ARP_TTL = <span class="number">5000</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> ( <span class="keyword">auto</span> it = ip_and_mac_.<span class="built_in">begin</span>(); it != ip_and_mac_.<span class="built_in">end</span>(); ) &#123;</span><br><span class="line">    it-&gt;second.second += ms_since_last_tick;</span><br><span class="line">    <span class="keyword">if</span> ( it-&gt;second.second &gt;= IP_MAP_TTL ) &#123;</span><br><span class="line">      it = ip_and_mac_.<span class="built_in">erase</span>( it );</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      ++it;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> ( <span class="keyword">auto</span> it = arp_timer_.<span class="built_in">begin</span>(); it != arp_timer_.<span class="built_in">end</span>(); ) &#123;</span><br><span class="line">    it-&gt;second += ms_since_last_tick;</span><br><span class="line">    <span class="keyword">if</span> ( it-&gt;second &gt;= ARP_TTL ) &#123;</span><br><span class="line">      it = arp_timer_.<span class="built_in">erase</span>( it );</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      ++it;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>最后是收到一个帧，这个帧可能是广播帧，或者携带报文，因此需要分别处理。</p>
+<ul>
+<li>如果目的地址不是自己，也不是广播帧，只需要直接抛弃</li>
+<li>如果携带的是ipv4报文，则取出数据，交付给运输层，</li>
+<li>如果是arp请求报文，则首先缓存发送方的ip地址，和mac地址，然后发送arp回复报文，</li>
+<li>如果是arp回复报文，则首先缓存发送方的ip地址，和mac地址，然后将发送方对应的ip地址的待发送的报文全部发送。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// frame: the incoming Ethernet frame</span></span><br><span class="line"><span class="function">optional&lt;InternetDatagram&gt; <span class="title">NetworkInterface::recv_frame</span><span class="params">( <span class="type">const</span> EthernetFrame&amp; frame )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">//接收到的帧的目标地址不是自己也不是广播地址</span></span><br><span class="line">  <span class="keyword">if</span> ( frame.header.dst != ethernet_address_ &amp;&amp; frame.header.dst != ETHERNET_BROADCAST )</span><br><span class="line">    <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( frame.header.type == EthernetHeader::TYPE_IPv4 ) &#123;</span><br><span class="line">    InternetDatagram data;</span><br><span class="line">    <span class="keyword">if</span> ( <span class="built_in">parse</span>( data, frame.payload ) )</span><br><span class="line">      <span class="keyword">return</span> data;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> ( frame.header.type == EthernetHeader::TYPE_ARP ) &#123;</span><br><span class="line">    ARPMessage arpmsg;</span><br><span class="line">    <span class="keyword">if</span> ( <span class="built_in">parse</span>( arpmsg, frame.payload ) ) &#123;</span><br><span class="line">      ip_and_mac_.<span class="built_in">insert</span>( &#123; arpmsg.sender_ip_address, &#123; arpmsg.sender_ethernet_address, <span class="number">0</span> &#125; &#125; );</span><br><span class="line">      <span class="keyword">if</span> ( arpmsg.opcode == ARPMessage::OPCODE_REPLY ) &#123;</span><br><span class="line">        vector&lt;InternetDatagram&gt; datas = waited_dagrams_[arpmsg.sender_ip_address];</span><br><span class="line">        <span class="keyword">for</span> ( InternetDatagram data : datas ) &#123;</span><br><span class="line">          <span class="built_in">send_datagram</span>( data, Address::<span class="built_in">from_ipv4_numeric</span>( arpmsg.sender_ip_address ) );</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        waited_dagrams_.<span class="built_in">erase</span>( arpmsg.sender_ip_address );</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ( arpmsg.opcode == ARPMessage::OPCODE_REQUEST ) &#123;</span><br><span class="line">        <span class="keyword">if</span> ( arpmsg.target_ip_address == ip_address_.<span class="built_in">ipv4_numeric</span>() ) &#123;</span><br><span class="line">          ARPMessage reply_msg;</span><br><span class="line">          reply_msg.opcode = ARPMessage::OPCODE_REPLY;</span><br><span class="line">          reply_msg.sender_ip_address = ip_address_.<span class="built_in">ipv4_numeric</span>();</span><br><span class="line">          reply_msg.sender_ethernet_address = ethernet_address_;</span><br><span class="line">          reply_msg.target_ip_address = arpmsg.sender_ip_address;</span><br><span class="line">          reply_msg.target_ethernet_address = arpmsg.sender_ethernet_address;</span><br><span class="line"></span><br><span class="line">          EthernetFrame reply_frame &#123;</span><br><span class="line">            &#123; arpmsg.sender_ethernet_address, ethernet_address_, EthernetHeader::TYPE_ARP &#125;,</span><br><span class="line">            <span class="built_in">serialize</span>( reply_msg ) &#125;;</span><br><span class="line">          out_frames_.<span class="built_in">push</span>( reply_frame );</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>ysf</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://eliaukz.github.io/Note/2023/12/15/cs144/cs144_summary(4)/">https://eliaukz.github.io/Note/2023/12/15/cs144/cs144_summary(4)/</a></span>
+                    </p>
+                
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Life consists not in holding good cards but in playing those you hold well.</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/Note/tags/cs144/"># cs144</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/Note/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/Note/2023/12/15/cs144/cs144_summary(3)/">cs144 summary(3)</a>
+            
+            
+            <a class="next" rel="next" href="/Note/2023/12/15/cs144/cs144_summary(5)/">cs144 summary(5)</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© ysf | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
