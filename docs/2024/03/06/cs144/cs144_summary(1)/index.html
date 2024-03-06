@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="ysf">
+
+
+
+
+
+<title>cs144 summary(1) | ysf&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/Note/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/Note/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/Note/js/script.js"></script>
+    
+    <script src="/Note/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/Note/">ysf&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/Note/archives">Posts</a>
+                
+                    <a class="menu-item" href="/Note/category">Categories</a>
+                
+                    <a class="menu-item" href="/Note/tag">Tags</a>
+                
+                    <a class="menu-item" href="/Note/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/Note/">ysf&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/Note/archives">Posts</a>
+                
+                    <a class="menu-item" href="/Note/category">Categories</a>
+                
+                    <a class="menu-item" href="/Note/tag">Tags</a>
+                
+                    <a class="menu-item" href="/Note/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">cs144 summary(1)</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">ysf</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">March 6, 2024&nbsp;&nbsp;10:13:57</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/Note/categories/cs144/">cs144</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="重排器"><a href="#重排器" class="headerlink" title="重排器"></a>重排器</h2><p>此实验要求我们实现一个字符流的重排器，其实还是比较简单，但是我有一个地方理解错了，因此调试了很久，最后还请教了别人，才做出来。</p>
+<p>首先看两个要实现的api</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Insert a new substring to be reassembled into a ByteStream.</span></span><br><span class="line">   <span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">( <span class="type">uint64_t</span> first_index, std::string data,</span></span></span><br><span class="line"><span class="params"><span class="function">                <span class="type">bool</span> is_last_substring, Writer&amp; output )</span></span>;</span><br><span class="line">   <span class="comment">// How many bytes are stored in the Reassembler itself?</span></span><br><span class="line">   <span class="function"><span class="type">uint64_t</span> <span class="title">bytes_pending</span><span class="params">()</span> <span class="type">const</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>第二个比较好理解，就是返回缓存的字符数量</p>
+<p>第一个是将到来的字符流插入到我们的数据结构中，然后将已经排好序的字符流写入到output中。</p>
+<p>依次介绍一下四个参数</p>
+<ul>
+<li>first_index 字符流的第一个字符在流中的索引</li>
+<li>data 到来的字符流</li>
+<li>is_last_substring 是否最后一个字符流</li>
+<li>output 排好序的字符流写入的数据结构</li>
+</ul>
+<p>而判断是否已经完全接受完数据而关闭output需要两方面的要求<br>当is_last_substring为true时，说明这个是发送方发送的最后一个子串，但是因为我们的缓存有容量限制，所以这个子串不一定能完全存入我们的缓存中，因此当这个标志到来时，我们只能得到最后一个字符的下标，只有我们的缓存的字符串下标大于等于这个数据时，才可以关闭output</p>
+<p>这里提到了容量的问题，这就是我遇到的坑，我的理解是，重排器有一个容量，写入的output有一个容量，导致我的测试无论如何都无法通过，最后在别人的帮助下，我认识到所谓的容量时output的容量，或者说outout的available_capacipy，才是重排器的容量。</p>
+<p>这里需要缓存，所以我选择了一个非常简单的数据结构–哈希表(索引为key，字符为value)，这也导致我后面的速度测试无法通过，不知道是不是这里的原因。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">uint64_t</span> unpop_index_;</span><br><span class="line"><span class="type">uint64_t</span> last_index_;</span><br><span class="line"><span class="type">bool</span> end_;</span><br><span class="line">std::unordered_map&lt;<span class="type">uint64_t</span>, std::string&gt; buf_;</span><br></pre></td></tr></table></figure>
+<p>构造函数如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Reassembler</span>() : <span class="built_in">unpop_index_</span>( <span class="number">0</span> ), <span class="built_in">last_index_</span>( <span class="number">0</span> ), <span class="built_in">end_</span>( <span class="literal">false</span> ), <span class="built_in">buf_</span>() &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>只有当 <code>end_ == true &amp;&amp; unpop_index &gt;= last_index_ </code> 时才可以关闭output。</p>
+<p>如果没有犯我说的容量问题的错误的话，这个应该是比较好实现的。</p>
+<p>要注意的一点是，一部分排好序的字符串需要立即push进output中，</p>
+<p>首先需要判断是否只最后一个子串，如果是的话需要将end_置为true，将last_index_更新为新数据。</p>
+<p>然后获得缓冲的可用容量，这个也是当前重排器的容量。</p>
+<p>然后获得将要插入的数据的起始索引，和终止索引。虽然字符串与buf_的相对位置关系很多，但是可以使用一个循环，就可以实现。</p>
+<p>插入数据之后就是将排好序的数据写入到output中</p>
+<p>这里使用了一个while循环，同时得到了字符串和更新了unpop_index_的值。最后将得到的字符串写入output中，就实现了该函数</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Reassembler::insert</span><span class="params">( <span class="type">uint64_t</span> first_index, string data, <span class="type">bool</span> is_last_substring, Writer&amp; output )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Your code here.</span></span><br><span class="line">  <span class="keyword">if</span> ( is_last_substring ) &#123;</span><br><span class="line">    last_index_ = first_index + data.<span class="built_in">length</span>();</span><br><span class="line">    end_ = <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="type">uint64_t</span> avail_cap_ = output.<span class="built_in">available_capacity</span>();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> ( <span class="type">uint64_t</span> index = <span class="built_in">max</span>( first_index, unpop_index_ );</span><br><span class="line">        index &lt; first_index + data.<span class="built_in">length</span>() &amp;&amp; index &lt; unpop_index_ + avail_cap_;</span><br><span class="line">        index++ ) &#123;</span><br><span class="line">    buf_[index] = data[index - first_index];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="type">uint64_t</span> len = <span class="number">0</span>;</span><br><span class="line">  string s = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="keyword">while</span> ( buf_.<span class="built_in">count</span>( unpop_index_ ) &amp;&amp; avail_cap_ &gt; <span class="number">0</span> ) &#123;</span><br><span class="line">    s += buf_[unpop_index_];</span><br><span class="line">    buf_.<span class="built_in">erase</span>( unpop_index_ );</span><br><span class="line">    len++;</span><br><span class="line">    unpop_index_++;</span><br><span class="line">    avail_cap_--;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  output.<span class="built_in">push</span>( s );</span><br><span class="line">  <span class="keyword">if</span> ( end_ &amp;&amp; unpop_index_ &gt;= last_index_ ) &#123;</span><br><span class="line">    output.<span class="built_in">close</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>字符串的相对位置大概如下所示</p>
+<p><img src="/Note/images/Pasted%20image%2020231208155130.png"></p>
+<p>第二个函数要求返回buf_的已经缓存的字符数量</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">uint64_t</span> <span class="title">Reassembler::bytes_pending</span><span class="params">()</span> <span class="type">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// Your code here.</span></span><br><span class="line">  <span class="keyword">return</span> buf_.<span class="built_in">size</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/Note/images/Pasted%20image%2020231208155204.png"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>ysf</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://eliaukz.github.io/Note/2024/03/06/cs144/cs144_summary(1)/">https://eliaukz.github.io/Note/2024/03/06/cs144/cs144_summary(1)/</a></span>
+                    </p>
+                
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Life consists not in holding good cards but in playing those you hold well.</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/Note/tags/cs144/"># cs144</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/Note/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/Note/2024/03/06/cs144/cs144_summary(0)/">cs144 summary(0)</a>
+            
+            
+            <a class="next" rel="next" href="/Note/2024/03/06/cs144/cs144_summary(2)/">cs144 summary(2)</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© ysf | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
