@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="ysf">
+
+
+
+
+
+<title>cs144 summary(5) | ysf&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/Note/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/Note/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/Note/js/script.js"></script>
+    
+    <script src="/Note/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/Note/">ysf&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/Note/archives">Posts</a>
+                
+                    <a class="menu-item" href="/Note/category">Categories</a>
+                
+                    <a class="menu-item" href="/Note/tag">Tags</a>
+                
+                    <a class="menu-item" href="/Note/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/Note/">ysf&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/Note/archives">Posts</a>
+                
+                    <a class="menu-item" href="/Note/category">Categories</a>
+                
+                    <a class="menu-item" href="/Note/tag">Tags</a>
+                
+                    <a class="menu-item" href="/Note/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">cs144 summary(5)</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">ysf</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">March 13, 2024&nbsp;&nbsp;23:08:43</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/Note/categories/cs144/">cs144</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="IP-router"><a href="#IP-router" class="headerlink" title="IP router"></a>IP router</h2><p>最后一个实验是要完成一个路由转发协议</p>
+<p>但是路由与转发还是有区别的</p>
+<ul>
+<li>路由：源主机到目的主机之间的寻址（全局的过程）</li>
+<li>转发：路由器输入端到输出端的寻址（局部的过程）</li>
+</ul>
+<p>而且要实现一个最长前缀匹配协议（要明确 mac地址是与接口一一对应）</p>
+<p>因此数据结构的选择需要实现mac地址与接口的对应这里查看构造函数不难想到</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Item</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">uint32_t</span> route_prefix;           <span class="comment">// IP地址</span></span><br><span class="line">  <span class="type">uint8_t</span> prefix_length;           <span class="comment">//前缀长度</span></span><br><span class="line">  std::optional&lt;Address&gt; next_hop; <span class="comment">//下一跳地址</span></span><br><span class="line">  <span class="type">size_t</span> interface_num &#123;&#125;;         <span class="comment">//接口的索引</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">std::vector&lt;Item&gt; routing_table_ &#123;&#125;; <span class="comment">//路由表</span></span><br><span class="line">std::vector&lt;Item&gt;::<span class="function">iterator <span class="title">longest_prefix_match_</span><span class="params">( <span class="type">uint32_t</span> dst_ip )</span></span>;</span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">int</span> <span class="title">match_length</span><span class="params">( <span class="type">uint32_t</span> src_ip, <span class="type">uint32_t</span> tgt_ip, <span class="type">uint8_t</span> tgt_len )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>还需要实现最长前缀匹配算法，这里实验要求并没有说明要用什么方式实现，因此我选择了最简单的方式–遍历</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">std::vector&lt;Router::Item&gt;::<span class="function">iterator <span class="title">Router::longest_prefix_match_</span><span class="params">( <span class="type">uint32_t</span> dst_ip )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">auto</span> res = routing_table_.<span class="built_in">end</span>();</span><br><span class="line">  <span class="keyword">auto</span> max_length = <span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">for</span> ( <span class="keyword">auto</span> it = routing_table_.<span class="built_in">begin</span>(); it != routing_table_.<span class="built_in">end</span>(); ++it ) &#123;</span><br><span class="line">    <span class="keyword">auto</span> len = <span class="built_in">match_length</span>( dst_ip, it-&gt;route_prefix, it-&gt;prefix_length );</span><br><span class="line">    <span class="keyword">if</span> ( len &gt; max_length ) &#123;</span><br><span class="line">      max_length = len;</span><br><span class="line">      res = it;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Router::match_length</span><span class="params">( <span class="type">uint32_t</span> src_ip, <span class="type">uint32_t</span> tgt_ip, <span class="type">uint8_t</span> tgt_len )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span> ( tgt_len == <span class="number">0</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( tgt_len &gt; <span class="number">32</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="type">uint8_t</span> <span class="type">const</span> len = <span class="number">32U</span> - tgt_len;</span><br><span class="line">  src_ip = src_ip &gt;&gt; len;</span><br><span class="line">  tgt_ip = tgt_ip &gt;&gt; len;</span><br><span class="line">  <span class="keyword">return</span> src_ip == tgt_ip ? tgt_len : <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>至于路由函数只需要遍历所有的接口，然后从接口收到帧，然后进行最长前缀匹配，从对应的端口分发出去。需要注意帧的ttl字段，只有还存活的帧才会被分发。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Router::route</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">for</span> ( <span class="keyword">auto</span>&amp; current_interface : interfaces_ ) &#123;</span><br><span class="line">    <span class="keyword">auto</span> received_dgram = current_interface.<span class="built_in">maybe_receive</span>();</span><br><span class="line">    <span class="keyword">if</span> ( received_dgram.<span class="built_in">has_value</span>() ) &#123;</span><br><span class="line">      <span class="keyword">auto</span>&amp; dgram = received_dgram.<span class="built_in">value</span>();</span><br><span class="line">      <span class="keyword">if</span> ( dgram.header.ttl &gt; <span class="number">1</span> ) &#123;</span><br><span class="line">        dgram.header.ttl--;</span><br><span class="line"></span><br><span class="line">        dgram.header.<span class="built_in">compute_checksum</span>();</span><br><span class="line">        <span class="keyword">auto</span> dst_ip = dgram.header.dst;</span><br><span class="line">        <span class="keyword">auto</span> it = <span class="built_in">longest_prefix_match_</span>( dst_ip );</span><br><span class="line">        <span class="keyword">if</span> ( it != routing_table_.<span class="built_in">end</span>() ) &#123;</span><br><span class="line">          <span class="keyword">auto</span>&amp; target_interface = <span class="built_in">interface</span>( it-&gt;interface_num );</span><br><span class="line">          target_interface.<span class="built_in">send_datagram</span>( dgram, it-&gt;next_hop.<span class="built_in">value_or</span>( Address::<span class="built_in">from_ipv4_numeric</span>( dst_ip ) ) );</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>ysf</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://eliaukz.github.io/Note/2024/03/13/cs144/cs144_summary(5)/">https://eliaukz.github.io/Note/2024/03/13/cs144/cs144_summary(5)/</a></span>
+                    </p>
+                
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Life consists not in holding good cards but in playing those you hold well.</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/Note/tags/cs144/"># cs144</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/Note/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/Note/2024/03/13/cs144/cs144_summary(4)/">cs144 summary(4)</a>
+            
+            
+            <a class="next" rel="next" href="/Note/2024/03/13/6.s081/fs/">xv6-fs</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© ysf | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

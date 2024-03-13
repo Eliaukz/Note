@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="ysf">
+
+
+
+
+
+<title>cs144 summary(3) | ysf&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/Note/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/Note/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/Note/js/script.js"></script>
+    
+    <script src="/Note/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/Note/">ysf&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/Note/archives">Posts</a>
+                
+                    <a class="menu-item" href="/Note/category">Categories</a>
+                
+                    <a class="menu-item" href="/Note/tag">Tags</a>
+                
+                    <a class="menu-item" href="/Note/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/Note/">ysf&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/Note/archives">Posts</a>
+                
+                    <a class="menu-item" href="/Note/category">Categories</a>
+                
+                    <a class="menu-item" href="/Note/tag">Tags</a>
+                
+                    <a class="menu-item" href="/Note/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">cs144 summary(3)</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">ysf</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">March 13, 2024&nbsp;&nbsp;23:08:43</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/Note/categories/cs144/">cs144</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="tcpSender"><a href="#tcpSender" class="headerlink" title="tcpSender"></a>tcpSender</h2><p>发送方需要检测发送出去的报文段是否超时，但是该实验要求不使用time库，而是实现一个函数，从而控制时间，因此我们需要自己实现一个time类<br>tcp超时后会把超时时延扩大为原来的2倍，在收到一个报文后，会把超时时间重置，因此我们需要实现这两个api，此外，为了检测是否超时，需要判断是否在等待报文，以及是否超时，因此我们可以实现这些函数</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Timer</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="type">uint64_t</span> initial_RTO_ms;</span><br><span class="line">  <span class="type">uint64_t</span> current_RTO_ms;</span><br><span class="line">  <span class="type">uint64_t</span> time_ms &#123; <span class="number">0</span> &#125;;</span><br><span class="line">  <span class="type">bool</span> running &#123; <span class="literal">false</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">Timer</span><span class="params">( <span class="type">uint64_t</span> init_ROT )</span> : initial_RTO_ms( init_ROT ), current_RTO_ms( init_ROT ) &#123;</span>&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">stop</span><span class="params">()</span> </span>&#123; running = <span class="literal">false</span>; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">start</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    time_ms = <span class="number">0</span>;</span><br><span class="line">    running = <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">tick</span><span class="params">( <span class="type">uint64_t</span> ms_since_last_tick )</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ( running ) &#123;</span><br><span class="line">      time_ms += ms_since_last_tick;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">bool</span> <span class="title">is_running</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> running; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">bool</span> <span class="title">is_expired</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> running &amp;&amp; time_ms &gt;= current_RTO_ms; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">doubleRTO</span><span class="params">()</span> </span>&#123; current_RTO_ms *= <span class="number">2</span>; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">resetRTO</span><span class="params">()</span> </span>&#123; current_RTO_ms = initial_RTO_ms; &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>发送方的数据比结构比较复杂</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Wrap32 isn_;</span><br><span class="line"><span class="type">uint64_t</span> initial_RTO_ms_; <span class="comment">//超时时长</span></span><br><span class="line"></span><br><span class="line"><span class="type">bool</span> syn_ &#123; <span class="literal">false</span> &#125;;</span><br><span class="line"><span class="type">bool</span> fin_ &#123; <span class="literal">false</span> &#125;;</span><br><span class="line"><span class="type">uint64_t</span> retransmit_cnt_ &#123; <span class="number">0</span> &#125;; <span class="comment">// 连续重复发送的数量</span></span><br><span class="line"></span><br><span class="line"><span class="type">uint64_t</span> acked_seqno &#123; <span class="number">0</span> &#125;;</span><br><span class="line"><span class="type">uint64_t</span> next_seqno &#123; <span class="number">0</span> &#125;;</span><br><span class="line"><span class="type">uint64_t</span> window_size &#123; <span class="number">1</span> &#125;;</span><br><span class="line"><span class="type">uint64_t</span> outstanding_cnt &#123; <span class="number">0</span> &#125;; <span class="comment">// 发送中的数量</span></span><br><span class="line"></span><br><span class="line">std::queue&lt;TCPSenderMessage&gt; outstanding_segments &#123;&#125;; <span class="comment">//发送中的队列 发送中未被确认的队列</span></span><br><span class="line">std::queue&lt;TCPSenderMessage&gt; queued_segments &#123;&#125;;      <span class="comment">// 缓存队列 标识还未被发送的队列</span></span><br><span class="line"></span><br><span class="line">Timer timer &#123; initial_RTO_ms_ &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>以下是一些必要的且比较简单的函数</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/* TCPSender constructor (uses a random ISN if none given) */</span></span><br><span class="line">TCPSender::<span class="built_in">TCPSender</span>( <span class="type">uint64_t</span> initial_RTO_ms, optional&lt;Wrap32&gt; fixed_isn )</span><br><span class="line">  : <span class="built_in">isn_</span>( fixed_isn.<span class="built_in">value_or</span>( Wrap32 &#123; <span class="built_in">random_device</span>()() &#125; ) ), <span class="built_in">initial_RTO_ms_</span>( initial_RTO_ms )</span><br><span class="line">&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">uint64_t</span> <span class="title">TCPSender::sequence_numbers_in_flight</span><span class="params">()</span> <span class="type">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// Your code here.</span></span><br><span class="line">  <span class="keyword">return</span> outstanding_cnt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">uint64_t</span> <span class="title">TCPSender::consecutive_retransmissions</span><span class="params">()</span> <span class="type">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// Your code here.</span></span><br><span class="line">  <span class="keyword">return</span> retransmit_cnt_;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">optional&lt;TCPSenderMessage&gt; <span class="title">TCPSender::maybe_send</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// Your code here.</span></span><br><span class="line">  <span class="keyword">if</span> ( queued_segments.<span class="built_in">empty</span>() )</span><br><span class="line">    <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( !timer.<span class="built_in">is_running</span>() )</span><br><span class="line">    timer.<span class="built_in">start</span>();</span><br><span class="line"></span><br><span class="line">  TCPSenderMessage msg = queued_segments.<span class="built_in">front</span>();</span><br><span class="line">  queued_segments.<span class="built_in">pop</span>();</span><br><span class="line">  <span class="keyword">return</span> msg;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">TCPSenderMessage <span class="title">TCPSender::send_empty_message</span><span class="params">()</span> <span class="type">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// Your code here.</span></span><br><span class="line">  <span class="keyword">return</span> TCPSenderMessage &#123; isn_ + next_seqno, <span class="literal">false</span>, &#123;&#125;, <span class="literal">false</span> &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>push 函数需要只要当前窗口未满，则从outbounm_stream读取payload_size字节 到msg.payload，然后将其加入到待发送队列。这里细节较多，不再一一赘述</p>
+<p>**push函数仅仅向待发送队列中添加数据，maybe_send函数才是真正发送报文的函数 **</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">TCPSender::push</span><span class="params">( Reader&amp; outbound_stream )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// Your code here.</span></span><br><span class="line"></span><br><span class="line">  <span class="type">uint64_t</span> currwindow_size = <span class="built_in">max</span>( window_size, (<span class="type">uint64_t</span>)<span class="number">1</span> );</span><br><span class="line">  <span class="keyword">while</span> ( outstanding_cnt &lt; currwindow_size ) &#123;</span><br><span class="line">    TCPSenderMessage msg;</span><br><span class="line">    msg.seqno = Wrap32::<span class="built_in">wrap</span>( next_seqno, isn_ );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ( !syn_ ) &#123;</span><br><span class="line">      msg.SYN = syn_ = <span class="literal">true</span>;</span><br><span class="line">      outstanding_cnt += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">uint64_t</span> payload_size = <span class="built_in">min</span>( TCPConfig::MAX_PAYLOAD_SIZE, (<span class="type">size_t</span>)( currwindow_size - outstanding_cnt ) );</span><br><span class="line"></span><br><span class="line">    <span class="built_in">read</span>( outbound_stream, payload_size, msg.payload ); <span class="comment">//从outbounm_stream读取payload_size字节 到msg.payload</span></span><br><span class="line"></span><br><span class="line">    outstanding_cnt += msg.payload.<span class="built_in">length</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ( !fin_ &amp;&amp; outbound_stream.<span class="built_in">is_finished</span>() &amp;&amp; outstanding_cnt &lt; currwindow_size ) &#123;</span><br><span class="line">      fin_ = <span class="literal">true</span>;</span><br><span class="line">      msg.FIN = <span class="literal">true</span>;</span><br><span class="line">      outstanding_cnt += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ( msg.<span class="built_in">sequence_length</span>() == <span class="number">0</span> )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    queued_segments.<span class="built_in">push</span>( msg );</span><br><span class="line">    outstanding_segments.<span class="built_in">push</span>( msg );</span><br><span class="line">    next_seqno += msg.<span class="built_in">sequence_length</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ( msg.FIN || outbound_stream.<span class="built_in">bytes_buffered</span>() == <span class="number">0</span> )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>receive函数需要从收到的报文处读取处window_size，并将其保存，然后如果收到ackno，则检查发送队列，只要满足条件的全部弹出队列，这里每次弹出一个报文时，需要停止定时器，然后如果有新的报文，则开启一个新的定时器。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">TCPSender::receive</span><span class="params">( <span class="type">const</span> TCPReceiverMessage&amp; msg )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// Your code here.</span></span><br><span class="line">  window_size = msg.window_size;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( msg.ackno.<span class="built_in">has_value</span>() ) &#123;</span><br><span class="line">    <span class="keyword">auto</span> ackno = msg.ackno.<span class="built_in">value</span>().<span class="built_in">unwrap</span>( isn_, next_seqno );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ( ackno &gt; next_seqno )</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    acked_seqno = ackno;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> ( !outstanding_segments.<span class="built_in">empty</span>() ) &#123;</span><br><span class="line">      <span class="keyword">auto</span> front_msg = outstanding_segments.<span class="built_in">front</span>();</span><br><span class="line">      <span class="keyword">if</span> ( front_msg.<span class="built_in">sequence_length</span>() + front_msg.seqno.<span class="built_in">unwrap</span>( isn_, next_seqno ) &lt;= acked_seqno ) &#123;</span><br><span class="line">        outstanding_segments.<span class="built_in">pop</span>();</span><br><span class="line">        outstanding_cnt -= front_msg.<span class="built_in">sequence_length</span>();</span><br><span class="line"></span><br><span class="line">        timer.<span class="built_in">resetRTO</span>();</span><br><span class="line">        <span class="keyword">if</span> ( !outstanding_segments.<span class="built_in">empty</span>() ) &#123;</span><br><span class="line">          timer.<span class="built_in">start</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        retransmit_cnt_ = <span class="number">0</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ( outstanding_segments.<span class="built_in">empty</span>() )</span><br><span class="line">      timer.<span class="built_in">stop</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>tick函数是使定时器增加<code>ms_since_last_tick</code> 如果报文，就将第一个报文添加到待发送队列中重新发送。同时使计时器的超时时间加倍</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">TCPSender::tick</span><span class="params">( <span class="type">const</span> <span class="type">uint64_t</span> ms_since_last_tick )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// Your code here.</span></span><br><span class="line">  timer.<span class="built_in">tick</span>( ms_since_last_tick );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( timer.<span class="built_in">is_expired</span>() ) &#123;</span><br><span class="line">    queued_segments.<span class="built_in">push</span>( outstanding_segments.<span class="built_in">front</span>() );</span><br><span class="line">    <span class="keyword">if</span> ( window_size != <span class="number">0</span> ) &#123;</span><br><span class="line">      ++retransmit_cnt_;</span><br><span class="line">      timer.<span class="built_in">doubleRTO</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    timer.<span class="built_in">start</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>ysf</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://eliaukz.github.io/Note/2024/03/13/cs144/cs144_summary(3)/">https://eliaukz.github.io/Note/2024/03/13/cs144/cs144_summary(3)/</a></span>
+                    </p>
+                
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Life consists not in holding good cards but in playing those you hold well.</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/Note/tags/cs144/"># cs144</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/Note/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/Note/2024/03/13/cs144/cs144_summary(2)/">cs144 summary(2)</a>
+            
+            
+            <a class="next" rel="next" href="/Note/2024/03/13/cs144/cs144_summary(4)/">cs144 summary(4)</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© ysf | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

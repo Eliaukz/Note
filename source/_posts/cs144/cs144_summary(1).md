@@ -101,7 +101,7 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
 
 字符串的相对位置大概如下所示
 
-![](images/Pasted%20image%2020231208155130.png)
+![](img/Pasted%20image%2020231208155130.png)
 
 
 第二个函数要求返回buf_的已经缓存的字符数量
@@ -115,4 +115,4 @@ uint64_t Reassembler::bytes_pending() const
 
 ```
 
-![](images/Pasted%20image%2020231208155204.png)
+![](img/Pasted%20image%2020231208155204.png)

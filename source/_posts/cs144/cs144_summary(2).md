@@ -164,4 +164,4 @@ TCPReceiverMessage TCPReceiver::send( const Writer& inbound_stream ) const
 ```
 
 
-![](images/Pasted%20image%2020231208190408.png)
+![](img/Pasted%20image%2020231208190408.png)
