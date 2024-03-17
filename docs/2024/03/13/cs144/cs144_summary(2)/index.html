@@ -246,7 +246,6 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TCPReceiverMessage <span class="title">TCPReceiver::send</span><span class="params">( <span class="type">const</span> Writer&amp; inbound_stream )</span> <span class="type">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// Your code here.</span></span><br><span class="line">  <span class="type">uint16_t</span> window_size</span><br><span class="line">    = inbound_stream.<span class="built_in">available_capacity</span>() &gt; <span class="number">0xffff</span> ? <span class="number">0xffff</span> : inbound_stream.<span class="built_in">available_capacity</span>();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( !SYN_set ) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; optional&lt;Wrap32&gt; &#123;&#125;, window_size &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="type">bool</span> def_end = <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">if</span> ( FIN_set &amp;&amp; reassembler_in == <span class="number">0</span> ) &#123;</span><br><span class="line">    def_end = <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// cout &lt;&lt; &quot;zero_point  &quot; &lt;&lt; zero_point.unwrap(Wrap32(0),0) &lt;&lt; endl;</span></span><br><span class="line">  <span class="comment">// cout &lt;&lt; &quot;bytes_pushed  &quot; &lt;&lt; inbound_stream.bytes_pushed() &lt;&lt; &quot;  window_size : &quot; &lt;&lt; window_size &lt;&lt; endl;</span></span><br><span class="line">  <span class="keyword">return</span> TCPReceiverMessage &#123; <span class="built_in">optional</span>&lt;Wrap32&gt;( zero_point + inbound_stream.<span class="built_in">bytes_pushed</span>() + SYN_set + def_end ),</span><br><span class="line">                              window_size &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-<p><img src="/Note/img/Pasted%20image%2020231208190408.png"></p>
 
         </div>
 
@@ -282,6 +281,8 @@
                     
                         <a href="/Note/tags/cs144/"># cs144</a>
                     
+                        <a href="/Note/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"># 计算机网络</a>
+                    
                         
                 </span>
             </div>
@@ -296,7 +297,7 @@
                 <a class="prev" rel="prev" href="/Note/2024/03/13/cs144/cs144_summary(1)/">cs144 summary(1)</a>
             
             
-            <a class="next" rel="next" href="/Note/2024/03/13/cs144/cs144_summary(3)/">cs144 summary(3)</a>
+            <a class="next" rel="next" href="/Note/2024/03/13/cs144/cs144_summary(4)/">cs144 summary(4)</a>
             
         </section>
 

@@ -1,6 +1,7 @@
 ---
 tags:
   - cs144
+  - 计算机网络
 category: cs144
 title: cs144 summary(0)
 ---
@@ -18,7 +19,7 @@ title: cs144 summary(0)
 首先要实现一个基于tcp socket的webget客户端程序。
 socket实现的流程是
 
-![](img/Pasted%20image%2020231208191140.png)
+![](/img/cs144/Pasted%20image%2020231208191140.png)
 
 因此我们只需要实现client端，
 首先声明一个socket，然后和服务器建立连接，接着向socket写请求报文，最后等待服务器回复报文。
@@ -155,4 +156,3 @@ uint64_t Reader::bytes_popped() const
 
 ```
 
-![](img/Pasted%20image%2020231208151310.png)

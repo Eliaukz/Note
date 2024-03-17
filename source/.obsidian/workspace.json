@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "c0a54f0e8b68961e",
+        "id": "692f047f8fde4d14",
         "type": "tabs",
         "children": [
           {
-            "id": "2491eb7f7241328c",
+            "id": "8273e0a99d353934",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "bustub-spring23/buffer-pool-manager.md",
+                "file": "_posts/6.5840/mr.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "bustub-spring23/buffer-pool-manager.md",
+                "file": "_posts/6.5840/mr.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "bustub-spring23/buffer-pool-manager.md",
+                "file": "_posts/6.5840/mr.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "bustub-spring23/buffer-pool-manager.md"
+                "file": "_posts/6.5840/mr.md"
               }
             }
           }
@@ -146,9 +146,31 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "e3e111ee80c0922a",
+  "active": "8273e0a99d353934",
   "lastOpenFiles": [
+    "_posts/6.5840/img/mr.png",
+    "_posts/6.5840/mr.md",
+    "_posts/6.5840/img",
+    "_posts/cs144/cs144_summary(1).md",
+    "_posts/cs144/cs144_summary(0).md",
+    "_posts/6.5840/images/mrsequential.go",
+    "_posts/6.5840/images",
+    "img/6.5840/mr.png",
+    "img/6.5840/截屏2024-03-17 09.33.27.png",
+    "img/6.5840",
+    "_posts/cs144/cs144_summary(2).md",
+    "_posts/cs144/cs144_summary(3).md",
+    "_posts/cs144/cs144_summary(4).md",
+    "_posts/cs144/cs144_summary(5).md",
+    "_posts/6.5840",
+    "_posts/hello-world.md",
+    "img/cs144/Pasted image 20231208155204.png",
+    "img/cs144/Pasted image 20231208191140.png",
+    "img/Pasted image 20231208190408.png",
+    "img/cs144/Pasted image 20231208155130.png",
     "bustub-spring23/buffer-pool-manager.md",
+    "img/Pasted image 20231208151310.png",
+    "img/cs144",
     "bustub-spring23/lru-k-replacer.md",
     "bustub-spring23",
     "_posts/6.s081/fs.md",
@@ -161,29 +183,12 @@
     "_posts/6.s081/pgtbl.md",
     "category/index.md",
     "_posts/6.s081/syscall.md",
-    "_posts/cs144/cs144_summary(5).md",
-    "_posts/cs144/cs144_summary(4).md",
-    "_posts/cs144/cs144_summary(3).md",
-    "_posts/cs144/cs144_summary(2).md",
-    "_posts/cs144/cs144_summary(1).md",
-    "_posts/cs144/cs144_summary(0).md",
-    "_posts/hello-world.md",
     "cs144_summary(4).pdf",
     "未命名.md",
     "_posts/cs144/images/Pasted image 20231208151310.png",
     "_posts/cs144/images/Pasted image 20231208191140.png",
-    "_posts/cs144/images/Pasted image 20231208145738.png",
-    "images/Pasted image 20231208190612.png",
     "images",
     "_posts/images",
-    "_posts/cs144/images/Pasted image 20231208190408.png",
-    "_posts/cs144/images/Pasted image 20231208155204.png",
-    "_posts/cs144/images/Pasted image 20231208155130.png",
-    "tag/index.md",
-    "_posts/cs144/images/Pasted image 20231208145627.png",
-    "_posts/cs144/images/Pasted image 20231208145441.png",
-    "_posts/cs144/images/Pasted image 20231208145433.png",
-    "_posts/cs144/images",
-    "_posts/cs144"
+    "tag/index.md"
   ]
 }

@@ -1,6 +1,7 @@
 ---
 tags:
   - cs144
+  - 计算机网络
 category: cs144
 title: cs144 summary(1)
 ---
@@ -101,7 +102,7 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
 
 字符串的相对位置大概如下所示
 
-![](img/Pasted%20image%2020231208155130.png)
+![](/img/cs144/Pasted%20image%2020231208155130.png)
 
 
 第二个函数要求返回buf_的已经缓存的字符数量
@@ -115,4 +116,4 @@ uint64_t Reassembler::bytes_pending() const
 
 ```
 
-![](img/Pasted%20image%2020231208155204.png)
+![](/img/cs144/Pasted%20image%2020231208155204.png)

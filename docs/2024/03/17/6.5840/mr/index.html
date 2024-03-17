@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="ysf">
+
+
+
+
+
+<title>mapreduce | ysf&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/Note/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/Note/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/Note/js/script.js"></script>
+    
+    <script src="/Note/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/Note/">ysf&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/Note/archives">Posts</a>
+                
+                    <a class="menu-item" href="/Note/category">Categories</a>
+                
+                    <a class="menu-item" href="/Note/tag">Tags</a>
+                
+                    <a class="menu-item" href="/Note/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/Note/">ysf&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/Note/archives">Posts</a>
+                
+                    <a class="menu-item" href="/Note/category">Categories</a>
+                
+                    <a class="menu-item" href="/Note/tag">Tags</a>
+                
+                    <a class="menu-item" href="/Note/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">mapreduce</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">ysf</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">March 17, 2024&nbsp;&nbsp;9:27:46</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/Note/categories/6-5840/">6.5840</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="6-5840"><a href="#6-5840" class="headerlink" title="6.5840"></a>6.5840</h1><p>该实验是分布式领域大名鼎鼎的lab之一，实验一要求我们实现mapreduce（Google三驾马车之一）。</p>
+<ul>
+<li>lab地址<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.824/labs/lab-mr.html">https://pdos.csail.mit.edu/6.824/labs/lab-mr.html</a></li>
+<li>论文地址<a target="_blank" rel="noopener" href="https://static.googleusercontent.com/media/research.google.com/zh-CN//archive/mapreduce-osdi04.pdf">https://static.googleusercontent.com/media/research.google.com/zh-CN//archive/mapreduce-osdi04.pdf</a></li>
+</ul>
+<h2 id="总体设计"><a href="#总体设计" class="headerlink" title="总体设计"></a>总体设计</h2><p>该实验比较简单，总体流程如下图所示<br><img src="/Note/img/6.5840/mr.png"></p>
+<ul>
+<li>Master 节点只负责分配任务</li>
+<li>worker节点负责map以及reduce任务：<ul>
+<li>map 将字符串分割为单个单词然后保存进中间文件中<code>   map(String key, String value):   // key: document name   // value: document contents   for each word w in value:   EmitIntermediate(w, &quot;1&quot;);</code></li>
+<li>reduce 将中间文件单词排序后合并同类项然后保存斤final文件中	<code>   reduce(String key, Iterator values):   // key: a word   // values: a list of counts   int result = 0;   for each v in values:   result += ParseInt(v);   Emit(AsString(result));</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="task相关定义"><a href="#task相关定义" class="headerlink" title="task相关定义"></a>task相关定义</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">type</span> TaskStatus <span class="type">int</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	Idle TaskStatus = <span class="literal">iota</span></span><br><span class="line">	Running</span><br><span class="line">	Complete</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> TaskInfo <span class="keyword">struct</span> &#123;</span><br><span class="line">	RStatus   TaskStatus <span class="comment">//是否被处理</span></span><br><span class="line">	StartTime time.Time</span><br><span class="line">	Task      *Task</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Task /*</span></span><br><span class="line"><span class="keyword">type</span> Task <span class="keyword">struct</span> &#123;</span><br><span class="line">	TaskId   <span class="type">int</span></span><br><span class="line">	Input    <span class="type">string</span> <span class="comment">//文件位置，mapper阶段用</span></span><br><span class="line">	Costatus Status <span class="comment">//coordinator状态</span></span><br><span class="line">	NReduce  <span class="type">int</span></span><br><span class="line">	Temp     []<span class="type">string</span> <span class="comment">//用于保存每个work产生的n个文件、进行reduce时处理的文件</span></span><br><span class="line">	Output   <span class="type">string</span>   <span class="comment">//输出文件名，reduce阶段用</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>worker 在请求任务以及提交任务时，无需提供自己的相关信息，因此<code>AskForTask</code>时无需提供参数，在返回值中可以获得自己需要的文件名，nreducenum，taskid等信息，在<code>CommitTask</code>时相关的信息在参数中交付给master而无需获得返回值。</p>
+<h2 id="coordinator-相关定义"><a href="#coordinator-相关定义" class="headerlink" title="coordinator 相关定义"></a>coordinator 相关定义</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">type</span> Status <span class="type">int</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	Map Status = <span class="literal">iota</span></span><br><span class="line">	Reduce</span><br><span class="line">	Exit</span><br><span class="line">	Wait</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Coordinator <span class="keyword">struct</span> &#123;</span><br><span class="line">	mu        sync.Mutex</span><br><span class="line">	TaskQueue <span class="keyword">chan</span> *Task</span><br><span class="line">	TaskInfo  <span class="keyword">map</span>[<span class="type">int</span>]*TaskInfo</span><br><span class="line">	NReduce   <span class="type">int</span></span><br><span class="line">	Files     []<span class="type">string</span></span><br><span class="line">	Temp      [][]<span class="type">string</span></span><br><span class="line">	Exit      <span class="type">bool</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>TaskQueue 队列中存储未发放的任务，TaskInfo中存储已经发放，未提交的任务，</li>
+<li>在初始化时，将map任务全部加入到队列中，同时将任务id作为key，任务作为value存入taskinfo中，在每次提交任务时，在taskinfo中清除对应的任务。</li>
+<li>完成所有map任务后，再将所有的reduce任务加入队列，等待worker请求任务</li>
+<li>同时master还需负责监测worker是不是离线，需要每5秒钟检测一下taskinfo中的任务是否超时，如果超时，就将对应的任务重新加入到队列中，等待worker请求该任务。</li>
+</ol>
+<h2 id="worker相关定义"><a href="#worker相关定义" class="headerlink" title="worker相关定义"></a>worker相关定义</h2><p>worker 相关函数主要参考mrsequentialgo中的写法，每次请求任务以及提交任务时都调用call函数实现。</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">*** Starting wc test.</span><br><span class="line">--- wc test: PASS</span><br><span class="line">*** Starting indexer test.</span><br><span class="line">--- indexer test: PASS</span><br><span class="line">*** Starting map parallelism test.</span><br><span class="line">--- map parallelism test: PASS</span><br><span class="line">*** Starting reduce parallelism test.</span><br><span class="line">--- reduce parallelism test: PASS</span><br><span class="line">*** Starting job count test.</span><br><span class="line">--- job count test: PASS</span><br><span class="line">*** Starting early exit test.</span><br><span class="line">--- early exit test: PASS</span><br><span class="line">*** Starting crash test.</span><br><span class="line">--- crash test: PASS</span><br><span class="line">*** PASSED ALL TESTS</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>ysf</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://eliaukz.github.io/Note/2024/03/17/6.5840/mr/">https://eliaukz.github.io/Note/2024/03/17/6.5840/mr/</a></span>
+                    </p>
+                
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Life consists not in holding good cards but in playing those you hold well.</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/Note/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"># 分布式</a>
+                    
+                        <a href="/Note/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"># 大数据</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/Note/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/Note/2024/03/13/git/%E6%88%91%E7%9A%84git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">我的git常用命令</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© ysf | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

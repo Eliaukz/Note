@@ -2,6 +2,7 @@
 title: cs144 summary(2)
 tags:
   - cs144
+  - 计算机网络
 category: cs144
 ---
 ## tcp receiver
@@ -164,4 +165,3 @@ TCPReceiverMessage TCPReceiver::send( const Writer& inbound_stream ) const
 ```
 
 
-![](img/Pasted%20image%2020231208190408.png)
