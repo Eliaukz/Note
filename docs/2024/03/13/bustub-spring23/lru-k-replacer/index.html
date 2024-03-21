@@ -13,7 +13,7 @@
 
 
 
-<title>Category: 15445 | ysf&#39;s blog</title>
+<title>lru-k-replacer | ysf&#39;s blog</title>
 
 
 
@@ -125,11 +125,102 @@
 </script>
             <div class="main">
                 <div class="container">
-    <article class="post-wrap page">
-        
-        <h2 class="post-title">lru-k-replacer</h2>
-        
-        <section class="post-content">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">lru-k-replacer</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">ysf</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">March 13, 2024&nbsp;&nbsp;23:08:43</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/Note/categories/15445/">15445</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
             <p>本文记录一下lru-k-replacer的实现历程</p>
 <p>在操作系统课程上，学习过<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/lru-cache/description/">lru算法</a>，但是我没有接触过lru-k因此上网搜了一下，最后发现只需要使用两个list+unordered_map就可以实现了。这是我茅塞顿开。</p>
 <p>因此数据结构的设计上，对于lrunode，我保存命中的次数，以及frame_id。具体如下。</p>
@@ -163,7 +254,61 @@
 
 
 
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>ysf</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://eliaukz.github.io/Note/2024/03/13/bustub-spring23/lru-k-replacer/">https://eliaukz.github.io/Note/2024/03/13/bustub-spring23/lru-k-replacer/</a></span>
+                    </p>
+                
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Life consists not in holding good cards but in playing those you hold well.</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/Note/tags/db/"># db</a>
+                    
+                        <a href="/Note/tags/cmu15445/"># cmu15445</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/Note/">home</a>
+            </div>
         </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/Note/2024/03/13/bustub-spring23/buffer-pool-manager/">buffer-pool-manager</a>
+            
+            
+            <a class="next" rel="next" href="/Note/2024/03/13/git/%E6%88%91%E7%9A%84git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">我的git常用命令</a>
+            
+        </section>
+
+
     </article>
 </div>
 

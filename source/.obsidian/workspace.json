@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/6.5840/mr.md",
+                "file": "_posts/bustub-spring23/buffer-pool-manager.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_posts/6.5840/mr.md",
+                "file": "_posts/bustub-spring23/buffer-pool-manager.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_posts/6.5840/mr.md",
+                "file": "_posts/bustub-spring23/buffer-pool-manager.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/6.5840/mr.md"
+                "file": "_posts/bustub-spring23/buffer-pool-manager.md"
               }
             }
           }
@@ -148,8 +148,10 @@
   },
   "active": "8273e0a99d353934",
   "lastOpenFiles": [
-    "_posts/6.5840/img/mr.png",
+    "_posts/bustub-spring23/lru-k-replacer.md",
+    "_posts/bustub-spring23/buffer-pool-manager.md",
     "_posts/6.5840/mr.md",
+    "_posts/6.5840/img/mr.png",
     "_posts/6.5840/img",
     "_posts/cs144/cs144_summary(1).md",
     "_posts/cs144/cs144_summary(0).md",
@@ -168,11 +170,9 @@
     "img/cs144/Pasted image 20231208191140.png",
     "img/Pasted image 20231208190408.png",
     "img/cs144/Pasted image 20231208155130.png",
-    "bustub-spring23/buffer-pool-manager.md",
     "img/Pasted image 20231208151310.png",
     "img/cs144",
-    "bustub-spring23/lru-k-replacer.md",
-    "bustub-spring23",
+    "_posts/bustub-spring23",
     "_posts/6.s081/fs.md",
     "_posts/6.s081/lock.md",
     "_posts/6.s081/thread.md",
