@@ -156,3 +156,127 @@ uint64_t Reader::bytes_popped() const
 
 ```
 
+
+## speed up
+使用上述循环队列得到的速度测试实在令人惋惜
+```txt
+Test project /mnt/minnow/build
+    Start 37: compile with optimization
+1/3 Test #37: compile with optimization ........   Passed   12.94 sec
+    Start 38: byte_stream_speed_test
+             ByteStream throughput: 0.48 Gbit/s
+2/3 Test #38: byte_stream_speed_test ...........   Passed    0.27 sec
+    Start 39: reassembler_speed_test
+             Reassembler throughput: 0.56 Gbit/s
+3/3 Test #39: reassembler_speed_test ...........   Passed    0.42 sec
+
+100% tests passed, 0 tests failed out of 3
+
+Total Test time (real) =  13.64 sec
+Built target speed
+```
+
+但是更换一下数据结构的速度测试就很amazing
+```txt
+
+Test project /mnt/minnow/build
+    Start 37: compile with optimization
+1/3 Test #37: compile with optimization ........   Passed    0.12 sec
+    Start 38: byte_stream_speed_test
+             ByteStream throughput: 34.00 Gbit/s
+2/3 Test #38: byte_stream_speed_test ...........   Passed    0.11 sec
+    Start 39: reassembler_speed_test
+             Reassembler throughput: 5.75 Gbit/s
+3/3 Test #39: reassembler_speed_test ...........   Passed    0.21 sec
+
+100% tests passed, 0 tests failed out of 3
+
+Total Test time (real) =   0.46 sec
+Built target speed
+```
+
+
+数据结构下
+```cpp
+
+class ByteStream
+{
+public:
+  explicit ByteStream( uint64_t capacity );
+
+  // Helper functions (provided) to access the ByteStream's Reader and Writer interfaces
+  Reader& reader();
+  const Reader& reader() const;
+  Writer& writer();
+  const Writer& writer() const;
+
+  void set_error() { error_ = true; };       // Signal that the stream suffered an error.
+  bool has_error() const { return error_; }; // Has the stream had an error?
+
+protected:
+  // Please add any additional state to the ByteStream here, and not to the Writer and Reader interfaces.
+  uint64_t capacity_;
+  bool error_ {};
+  bool eof_ {};
+  // std::string buf_;
+  std::deque<std::string_view> view_queue_ {};
+  std::deque<std::string> data_queue_ {};
+  // uint64_t head;
+  // uint64_t tail;
+  uint64_t bytepushed_ {};
+  uint64_t bytepoped_ {};
+};
+```
+
+而作出的修改也很少
+只需要修改push，peek，pop函数即可
+```cpp
+
+void Writer::push( string data )
+{
+  // Your code here.
+  if ( available_capacity() == 0 || data.empty() ) {
+    return;
+  }
+  uint64_t n = min( data.length(), available_capacity() );
+
+  if ( n < data.size() ) {
+    data = data.substr( 0, n );
+  }
+  data_queue_.push_back( std::move( data ) );
+  view_queue_.emplace_back( data_queue_.back().c_str(), n );
+  bytepushed_ += n;
+}
+
+
+string_view Reader::peek() const
+{
+  // Your code here.
+
+  if ( !view_queue_.empty() ) {
+    return view_queue_.front();
+  } else
+    return {};
+}
+
+
+void Reader::pop( uint64_t len )
+{
+  auto n = min( len, bytes_buffered() );
+  while ( n > 0 ) {
+    auto sz = view_queue_.front().size();
+    if ( n < sz ) {
+      view_queue_.front().remove_prefix( n );
+      bytepoped_ += n;
+      return;
+    }
+    view_queue_.pop_front();
+    data_queue_.pop_front();
+    n -= sz;
+    bytepoped_ += sz;
+  }
+}
+
+```
+
+这样在peek的时候就不会一次peek一个字符，而是直接返回string就大大提高了速度。
